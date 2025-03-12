@@ -4,15 +4,15 @@ We have already seen that git commits are just snapshots of an entire repository
 at one point in time. In this hands on session we are going to explore some useful
 git commands for helping keep a modular commit history.
 
-There are a number of open PRs that show different branches which we will be using in this
+There are two open PRs to show the different branches which we will be using in this
 demo. You can see the changes and commits in each branch by checking the PRs.
 
 ## Stashing local changes: git stash
 
 - Start by cloning this repository
 - Run `git status` to see you are on the main branch with no local changes.
-- Add a line in `src/main.py`, e.g. add `print("test")` at the end of the main function.
-- Run `git status` to see that `src/main.py` shows as changed
+- Make a change in `src/main.py`. Do this by adding `print("test")` at the end of the main function.
+- Run `git status` to see that `src/main.py` shows as changed.
 - Now we will try and merge the branch `stash-demo` into the branch `main`. The `stash-demo` branch
 also makes a change to `src/main.py`. Do this by running `git merge stash-demo`.
 - You will get an error like `error: Your local changes to the following files would be overwritten by merge: src/main.py`
@@ -29,9 +29,9 @@ you will see the changes introduced by merging the two branches but _not_ the ch
 ## Ammending a commit: git commit --amend
 
 - Now say you want to commit your changes, we can do this with `git add src/main.py` followed by `git commit -m "my commit message"`. 
-- After commiting you realize actually there was a typo, you should have added `print("Test")`,
+- After commiting you realize that you forgot to use capital letters, you should have added `print("Test")`,
 not `print("test")`! Making a new commit with `git commit -m "typo"` would create a messy git history.
-Instead you can _amend_ the previous commit!
+Instead you can _amend_ the previous commit
   1. Make the change you want to include in the previous commit: change `print("test")` to `print("Test")`.
   2. Add the changes with `git add src/main.py`.
   3. Amend the previous commit by running `git commit --amend`. A text editor will open where you can
@@ -53,14 +53,23 @@ to fix the typo in commit two and combine commits three, four and five into one 
     - Change `pick` to `edit` for the second commit, this will allow us to edit this commit.
     - For commits four and five change `pick` to `squash` this will combine them with commit three.
     - Your text editor should look something like the below image. When it does, save and exit the text editor.
+      <img width="413" alt="Screenshot 2025-03-11 at 6 51 41 PM" src="https://github.com/user-attachments/assets/fdeccfcc-d378-48db-bbf6-a4982569cdf6" />
+
 - Now using what we have learned and by running `git status` try to complete the rebase. You should:
-  - First fix the typo in commit two (change `print("Commit Twwo")` to `print("Commit Two")`.
+  - First fix the typo in commit two (change `print("Commit Twwo")` to `print("Commit Two")`).
   - Then continue the rebase to squash together the commits three, four and five.
 - When you have finished run `git log` to see the results. The output should look something like
-the below image with commits 3, 4and 5 squashed into one. If you open `src/main.py` you should see
-that the typo in commit two is fixed.
+the below image with commits 3, 4and 5 squashed into one.
 
-Note: there are alot of other options like deleting commits, swapping commit order etc. that can
+  <img width="581" alt="Screenshot 2025-03-11 at 6 53 17 PM" src="https://github.com/user-attachments/assets/e3da4832-b45b-4e5d-8072-d70f4bbf5159" />
+  
+  If you open `src/main.py` you should see that the typo in commit two is fixed.
+  <img width="431" alt="Screenshot 2025-03-11 at 6 53 35 PM" src="https://github.com/user-attachments/assets/c6d6b740-c293-4927-abe8-839dfd07cadc" />
+
+
+
+
+Note: there are alot of other options like deleting commits or swapping commit order that can
 be done by rebasing.
 
 Note: If you rebase after pushing your code the commits in your local repo will be out of sync
