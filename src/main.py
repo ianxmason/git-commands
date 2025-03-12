@@ -14,5 +14,9 @@ def commit_three():
     print("Commit Three")
 
 
+def commit_four():
+    print("Commit Four")
+
+
 if __name__ == "__main__":
     main()
