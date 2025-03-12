@@ -41,7 +41,32 @@ Instead you can _amend_ the previous commit!
 
 ## Interactive rebase: git rebase -i
 
-N.B you can also rebase one branch onto another branch with the `--onto` option.
+Rebase reapplies all the commits in one branch on top of another. It also allows you to edit
+the commits as they are being reapplied. Here by rebasing onto main to reapply the 
+commits that were made in the `rebase-demo` branch but edit them along the way.
+
+- Look at `rebase-demo` branch. There are five commits, but we made a typo in commit 2. We would like
+to fix the typo in commit two and combine commits three, four and five into one commit.
+- Begin by switching to the `rebase-demo` branch: `git switch rebase-demo`.
+- Now we start the rebase process onto the main branch by running: `git rebase -i main`.
+- A text editor will appear with the five commits that are going to be reapplied.
+    - Change `pick` to `edit` for the second commit, this will allow us to edit this commit.
+    - For commits four and five change `pick` to `squash` this will combine them with commit three.
+    - Your text editor should look something like the below image. When it does, save and exit the text editor.
+- Now using what we have learned and by running `git status` try to complete the rebase. You should:
+  - First fix the typo in commit two (change `print("Commit Twwo")` to `print("Commit Two")`.
+  - Then continue the rebase to squash together the commits three, four and five.
+- When you have finished run `git log` to see the results. The output should look something like
+the below image with commits 3, 4and 5 squashed into one. If you open `src/main.py` you should see
+that the typo in commit two is fixed.
+
+Note: there are alot of other options like deleting commits, swapping commit order etc. that can
+be done by rebasing.
+
+Note: If you rebase after pushing your code the commits in your local repo will be out of sync
+with the commits on the remote github repo. You can force push to override the changes on github
+but this is dangerous and could break other people's code if anybody else is working with the same
+commits.
 
 ## Some other useful commands
 
